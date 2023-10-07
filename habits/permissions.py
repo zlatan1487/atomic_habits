@@ -11,6 +11,5 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 
             return True
 
-        # Запрещаем редактирование чужих привычек
         return obj.user == request.user
 

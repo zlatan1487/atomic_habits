@@ -1,8 +1,8 @@
 import telebot
 import os
 
-API_KEY = os.getenv('EXCHANGE_RATE_API_KEY')
-TELEGRAM_BOT = os.getenv('TELEGRAM_EXCHANGE_RATE_BOT')
+API_KEY = os.getenv('HABBITS_RATE_API_KEY')
+TELEGRAM_BOT = os.getenv('HABBITS_EXCHANGE_RATE_BOT')
 bot = telebot.TeleBot(TELEGRAM_BOT)
 
 

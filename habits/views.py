@@ -1,14 +1,24 @@
 from rest_framework import generics
-from habits.models import Place, Action, PleasantHabit, LinkedHabit, Habit
-from habits.serializers import PlaceSerializer, ActionSerializer, PleasantHabitSerializer, LinkedHabitSerializer, HabitSerializer
 from habits.paginators import Pagination
 from rest_framework.generics import ListAPIView
 from rest_framework.permissions import IsAuthenticated
-from rest_framework import viewsets, permissions
 from habits.permissions import IsOwnerOrReadOnly
 from django.db.models import Q
 from habits.tasks import remind_habits
-from datetime import datetime, time, timedelta
+from habits.models import (
+    Place,
+    Action,
+    PleasantHabit,
+    LinkedHabit,
+    Habit
+)
+from habits.serializers import (
+    PlaceSerializer,
+    ActionSerializer,
+    PleasantHabitSerializer,
+    LinkedHabitSerializer,
+    HabitSerializer
+)
 
 
 class HabitListCreateView(generics.ListCreateAPIView):
@@ -82,14 +92,12 @@ class ActionListCreateView(generics.ListCreateAPIView):
 
 
 class PleasantHabitListCreateView(generics.ListCreateAPIView):
+
     """
     Представление для создания и списка объектов модели PleasantHabit.
     """
     queryset = PleasantHabit.objects.all()
     serializer_class = PleasantHabitSerializer
-
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
 
 
 class LinkedHabitListCreateView(generics.ListCreateAPIView):
@@ -98,8 +106,3 @@ class LinkedHabitListCreateView(generics.ListCreateAPIView):
     """
     queryset = LinkedHabit.objects.all()
     serializer_class = LinkedHabitSerializer
-
-
-
-
-

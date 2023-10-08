@@ -46,11 +46,13 @@ class LinkedHabitSerializer(serializers.ModelSerializer):
 
 
 class HabitSerializer(serializers.ModelSerializer):
-    estimated_time = serializers.CharField(validators=[validate_estimated_time])
-
     """
     Сериализатор для модели Habit.
     """
+    estimated_time = serializers.CharField(
+        validators=[validate_estimated_time]
+    )
+
     class Meta:
         model = Habit
         fields = '__all__'

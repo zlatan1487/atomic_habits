@@ -1,7 +1,6 @@
-from datetime import datetime, time, timedelta
-from habits.telegram_utils import send_notification  # Импортируйте вашу функцию отправки уведомлений
+from datetime import datetime
+from habits.telegram_utils import send_notification
 from habits.models import Habit
-from django.utils import timezone
 from celery import shared_task
 
 
@@ -11,6 +10,8 @@ def remind_habits():
 
     for habit in Habit.objects.all():
         if current_time == habit.time:
-            message = f"Не забудьте выполнить привычку: {habit.action.name} в {habit.time} в {habit.place.name}"
+            message = f"Не забудьте выполнить привычку: " \
+                      f"{habit.action.name} " \
+                      f"в {habit.time} " \
+                      f"в {habit.place.name}"
             send_notification('5409971102', message)
-

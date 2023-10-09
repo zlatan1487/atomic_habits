@@ -1,10 +1,9 @@
 import telebot
 import os
 
-API_KEY = os.getenv('EXCHANGE_RATE_API_KEY')
-TELEGRAM_BOT = os.getenv('TELEGRAM_EXCHANGE_RATE_BOT')
+TELEGRAM_BOT = os.getenv('TELEGRAM_BOT_URL')
 bot = telebot.TeleBot(TELEGRAM_BOT)
 
 
-def send_notification(chat_id, message):
+def send_message_to_user(chat_id, message):
     bot.send_message(chat_id, message)

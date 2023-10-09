@@ -37,7 +37,7 @@ class HabitAPITestCase(APITestCase):
         Test habit creation.
         """
 
-        url = reverse('habits:habit-list-create')
+        url = reverse('habits:habit-create')
 
         response = self.client.post(
             url, self.habit_data, format='json')
@@ -63,7 +63,7 @@ class PlaceAPITestCase(APITestCase):
         """
         Тест создания места
         """
-        url = reverse('habits:place-list-create')
+        url = reverse('habits:places')
         data = {"name": "Some Place"}
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -83,7 +83,7 @@ class PleasantHabitAPITestCase(APITestCase):
         """
         Тест создания приятной привычки
         """
-        url = reverse('habits:pleasant-habit-list-create')
+        url = reverse('habits:pleasants')
         data = {"description": "Some Pleasant Habit"}
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -102,7 +102,7 @@ class LinkedHabitAPITestCase(APITestCase):
         """
         Тест создания связанной привычки
         """
-        url = reverse('habits:linked-habit-list-create')
+        url = reverse('habits:linkeds')
         data = {"description": "Some Linked Habit", "is_pleasurable": True}
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)

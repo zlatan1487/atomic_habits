@@ -31,7 +31,7 @@ class HabitListCreateView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
-        remind_habits.delay()
+        # remind_habits()
 
 
 class HabitListView(ListAPIView):
@@ -73,6 +73,7 @@ class PublicHabitListView(generics.ListAPIView):
     """
     queryset = Habit.objects.filter(is_public=True)
     serializer_class = HabitSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class PlaceListCreateView(generics.ListCreateAPIView):
@@ -81,6 +82,7 @@ class PlaceListCreateView(generics.ListCreateAPIView):
     """
     queryset = Place.objects.all()
     serializer_class = PlaceSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class ActionListCreateView(generics.ListCreateAPIView):
@@ -89,6 +91,7 @@ class ActionListCreateView(generics.ListCreateAPIView):
     """
     queryset = Action.objects.all()
     serializer_class = ActionSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class PleasantHabitListCreateView(generics.ListCreateAPIView):
@@ -98,6 +101,7 @@ class PleasantHabitListCreateView(generics.ListCreateAPIView):
     """
     queryset = PleasantHabit.objects.all()
     serializer_class = PleasantHabitSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class LinkedHabitListCreateView(generics.ListCreateAPIView):
@@ -106,3 +110,4 @@ class LinkedHabitListCreateView(generics.ListCreateAPIView):
     """
     queryset = LinkedHabit.objects.all()
     serializer_class = LinkedHabitSerializer
+    permission_classes = [IsAuthenticated]

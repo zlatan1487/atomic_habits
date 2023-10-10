@@ -1,21 +1,20 @@
 from datetime import datetime, timezone
 from django.utils import timezone
-
 from habits.telegram_utils import send_message_to_user
 from users.models import User
 from habits.models import Habit
 from celery import shared_task
+import pytz
 
 
 @shared_task
 def remind_habits():
-    current_time = timezone.now().time()
-    habits = Habit.objects.filter(time=current_time)
+    current_time = timezone.now().replace(second=0, microsecond=0)
 
+    habits = Habit.objects.filter(time=current_time)
     for habit in habits:
-        if current_time == habit.time:
-            print('Executing remind_habits for habit.id:', habit.id)
-            sendhabit_notification.delay(habit.id)
+        print('Executing remind_habits for habit.id:', habit.id)
+        sendhabit_notification.delay(habit.id)
 
 
 @shared_task

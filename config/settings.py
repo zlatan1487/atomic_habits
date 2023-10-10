@@ -93,7 +93,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.getenv('NAME'),
         'USER': os.getenv('USER'),
-        'PASSWORD': os.getenv('PASSWORD')
+        'PASSWORD': os.getenv('PASSWORD'),
+        'HOST': os.getenv('HOST'),
     }
 }
 
@@ -173,6 +174,7 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 CELERY_BEAT_SCHEDULE = {
     'remind_habits': {
         'task': 'habits.tasks.remind_habits',
-        'schedule': crontab(minute='*'),  # Запуск каждую минуту
+        'schedule': crontab(minute='*/1'),  # Запуск каждую минуту
+        # 'schedule': 1.0,
     }
 }

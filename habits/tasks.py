@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from django.utils import timezone
 from habits.telegram_utils import send_message_to_user
 from users.models import User
@@ -9,10 +9,12 @@ import pytz
 
 @shared_task
 def remind_habits():
-    current_time = timezone.now().replace(second=0, microsecond=0)
-
-    habits = Habit.objects.filter(time=current_time)
-    for habit in habits:
+    current_time = datetime.now().time()
+    time_interval = datetime.now() - timedelta(minutes=1)
+    habits = Habit.objects.filter(time__gte=time_interval)
+    print('habits----------', habits)
+    for habit in habits.filter(time__lte=current_time):
+        print("habit", habit.time)
         print('Executing remind_habits for habit.id:', habit.id)
         sendhabit_notification.delay(habit.id)
 

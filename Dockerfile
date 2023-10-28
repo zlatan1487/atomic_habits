@@ -9,4 +9,4 @@ RUN pip install --no-cache-dir -r requirements.txt || echo "Failed to install re
 COPY . .
 
 
-CMD ["python", "manage.py", "runserver", "--bind", "0.0.0.0:8000"]
+#CMD ["python", "manage.py", "runserver", "--bind", "0.0.0.0:8000"]

@@ -50,7 +50,7 @@ class Habit(models.Model):
         verbose_name="Место"
     )
 
-    time = models.DateTimeField(
+    time = models.TimeField(
         null=True,
         blank=True,
         verbose_name="Время выполнения"

@@ -14,6 +14,8 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 from celery.schedules import crontab
+from datetime import timedelta
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,7 +29,6 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -94,7 +95,7 @@ DATABASES = {
         'NAME': os.getenv('NAME'),
         'USER': os.getenv('USER'),
         'PASSWORD': os.getenv('PASSWORD'),
-        'HOST': os.getenv('HOST'),
+        # 'HOST': 'db',
     }
 }
 
@@ -123,13 +124,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Europe/Paris'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
 USE_TZ = True
 
-
+DEBUG = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
@@ -159,6 +160,11 @@ CORS_ALLOWED_ORIGINS = [
     "https://read-and-write.example.com",
 ]
 
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=40),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1)
+}
+
 CSRF_TRUSTED_ORIGINS = [
     "https://read-and-write.example.com",
 ]
@@ -167,14 +173,10 @@ CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
 CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
 
 
-CELERY_TIMEZONE = 'Europe/Paris'
-
-CELERY_TASK_TIME_LIMIT = 30 * 60
-
+CELERY_TIMEZONE = 'Europe/Moscow'
 CELERY_BEAT_SCHEDULE = {
     'remind_habits': {
         'task': 'habits.tasks.remind_habits',
-        'schedule': crontab(minute='*/1'),  # Запуск каждую минуту
-        # 'schedule': 1.0,
+        'schedule': crontab()
     }
 }

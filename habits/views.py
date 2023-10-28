@@ -31,7 +31,7 @@ class HabitListCreateView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
-        # remind_habits()
+        remind_habits()
 
 
 class HabitListView(ListAPIView):

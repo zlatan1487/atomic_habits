@@ -95,7 +95,7 @@ DATABASES = {
         'NAME': os.getenv('NAME'),
         'USER': os.getenv('USER'),
         'PASSWORD': os.getenv('PASSWORD'),
-        # 'HOST': 'db',
+        'HOST': 'db',
     }
 }
 
@@ -177,6 +177,6 @@ CELERY_TIMEZONE = 'Europe/Moscow'
 CELERY_BEAT_SCHEDULE = {
     'remind_habits': {
         'task': 'habits.tasks.remind_habits',
-        'schedule': crontab()
+        'schedule': crontab(minute='*/1')
     }
 }

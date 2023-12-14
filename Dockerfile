@@ -1,12 +1,14 @@
-FROM python:3
+FROM python:3.8
+
+ENV PYTHONUNBUFFERED 1
 
 WORKDIR /app
 
-COPY ./requirements.txt /code/
+COPY requirements.txt /app/
 
-RUN pip install --no-cache-dir -r requirements.txt || echo "Failed to install requirements"
+RUN pip install --upgrade pip && pip install -r requirements.txt
 
-COPY . .
+COPY . /app/
 
 
-#CMD ["python", "manage.py", "runserver", "--bind", "0.0.0.0:8000"]
+CMD ["python", "manage.py", "runserver", "--bind", "0.0.0.0:8000"]
